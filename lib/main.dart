@@ -28,6 +28,14 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(fontFamily: 'Poppins'),
+          displayLarge: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.bold),
+          bodySmall: TextStyle(fontFamily: 'Poppins',fontStyle: FontStyle.italic)
+        )
+      ),
       home: SplashScreen(),
     );
   }
