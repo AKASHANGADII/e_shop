@@ -1,5 +1,7 @@
 import 'package:e_shop/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'widgets/form_field_container.dart';
+
 
 class AuthScreen extends StatefulWidget {
   static const routeName='/auth-screen';
@@ -64,62 +66,14 @@ class _AuthScreenState extends State<AuthScreen> {
               Column(
                 children: [
                   if (!_isLogin) ...[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        child: TextFormField(
-                          controller: _nameController,
-                          decoration: InputDecoration(labelText: 'Name',
-                      border: InputBorder.none,),
-                          validator: _validateName,
-                        ),
-                      ),
-                    ),
+                    FormFieldContainer(controller: _nameController, labelText: 'Name', isObscure: false, validator: _validateName),
                     SizedBox(height: 20),
                   ],
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          border: InputBorder.none,
-                        ),
-                        validator: _validateEmail,
-                      ),
-                    ),
-                  ),
+                  FormFieldContainer(controller: _emailController, labelText: 'Email', isObscure: false, validator: _validateEmail),
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                            labelText: 'Password', border: InputBorder.none),
-                        obscureText: true,
-                        validator: _validatePassword,
-                      ),
-                    ),
-                  ),
+                  FormFieldContainer(controller: _passwordController, labelText: 'Password', isObscure: true, validator: _validatePassword),
                 ],
               ),
               Column(
