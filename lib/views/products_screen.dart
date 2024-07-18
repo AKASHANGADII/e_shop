@@ -1,3 +1,4 @@
+import 'package:e_shop/controllers/discount_controller.dart';
 import 'package:e_shop/controllers/products_controller.dart';
 import 'package:e_shop/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,8 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productList = Provider.of<ProductsController>(context,listen: false);
+    final discountController = Provider.of<DiscountController>(context,listen: false);
+    discountController.getDiscountStatus();
     productList.getProducts();
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -38,6 +41,7 @@ class ProductsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: 150,
@@ -46,15 +50,22 @@ class ProductsScreen extends StatelessWidget {
                   ),
                   Text(productList.products[index].title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
                   Text(productList.products[index].description,maxLines: 3,overflow: TextOverflow.ellipsis,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    Text("\$${productList.products[index].price}",style: TextStyle(decoration: TextDecoration.lineThrough),),
-                    Text("\$${(productList.products[index].price-productList.products[index].discountPercentage/100).toStringAsFixed(2)}"),
-                    Text("${productList.products[index].discountPercentage}% Off",style: TextStyle(color: Colors.green,fontWeight: FontWeight.w600),),
-                  ],)
+                  Consumer<DiscountController>(builder: (context,controller,_){
+                    if(controller.isDiscountActive){
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("\$${productList.products[index].price}",style: TextStyle(decoration: TextDecoration.lineThrough),),
+                          Text("\$${(productList.products[index].price-productList.products[index].discountPercentage/100).toStringAsFixed(2)}"),
+                          Text("${productList.products[index].discountPercentage}% Off",style: TextStyle(color: Colors.green,fontWeight: FontWeight.w600),),
+                        ],);
+                    }
+                    return Text("\$${productList.products[index].price}");
+
+                  }),
+
                 ],
-                          ),
+                ),
               ),
             ),)),
         );

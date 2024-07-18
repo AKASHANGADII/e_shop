@@ -1,3 +1,4 @@
+import 'package:e_shop/controllers/discount_controller.dart';
 import 'package:e_shop/controllers/products_controller.dart';
 import 'package:e_shop/views/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +15,7 @@ void main()async{
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create:(_)=> ProductsController()),
+        ChangeNotifierProvider(create:(_)=> DiscountController()),
       ],
       child: MyApp()));
 }
