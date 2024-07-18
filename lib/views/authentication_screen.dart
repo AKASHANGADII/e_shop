@@ -121,8 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               email, password, name);
                         }
                         if (user != null) {
-                          Navigator.pushReplacementNamed(
-                              context, '/products-screen');
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProductsScreen()));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Authentication failed')),
